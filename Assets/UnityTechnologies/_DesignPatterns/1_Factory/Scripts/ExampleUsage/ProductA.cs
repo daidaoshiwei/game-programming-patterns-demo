@@ -15,7 +15,7 @@ namespace DesignPatterns.Factory
 
         public void Initialize()
         {
-            // Add any unique set up logic here
+            // 在此处添加任何独特的设置逻辑
             gameObject.name = m_ProductName;
             m_ParticleSystem = GetComponentInChildren<ParticleSystem>();
 

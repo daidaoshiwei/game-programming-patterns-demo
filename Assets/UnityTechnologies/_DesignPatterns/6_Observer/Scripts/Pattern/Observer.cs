@@ -6,18 +6,18 @@ namespace DesignPatterns.Observer
 {
     public class ExampleObserver : MonoBehaviour
     {
-        // reference to the subject that we are observing/listening to
+        // 我们正在观察/监听的Subject引用
         [SerializeField] Subject subjectToObserve;
 
-        // event handling method: the function signature must match the subject's event
+        // 事件处理方法：函数签名必须与Subject的事件匹配
         private void OnThingHappened()
         {
-            // any logic that responds to event goes here
+            // 响应事件的任何逻辑都放在这里
         }
 
         private void Awake()
         {
-            // subscribe/register to the subject's event 
+            // 订阅/注册到Subject的事件
             if (subjectToObserve != null)
             {
                 subjectToObserve.ThingHappened += OnThingHappened;
@@ -26,7 +26,7 @@ namespace DesignPatterns.Observer
 
         private void OnDestroy()
         {
-            // unsubscribe/unregister if we destroy the object
+            // 如果销毁对象，取消订阅/注销
             if (subjectToObserve != null)
             {
                 subjectToObserve.ThingHappened -= OnThingHappened;

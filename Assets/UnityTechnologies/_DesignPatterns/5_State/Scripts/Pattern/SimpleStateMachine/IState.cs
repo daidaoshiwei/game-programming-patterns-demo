@@ -8,17 +8,17 @@ namespace DesignPatterns.StatePattern
     {
         public void Enter()
         {
-            // code that runs when we first enter the state
+            // 首次进入状态时运行的代码
         }
 
         public void Execute()
         {
-            // per-frame logic, include condition to transition to a new state
+            // 每帧逻辑，包括转换到新状态的条件
         }
 
         public void Exit()
         {
-            // code that runs when we exit the state
+            // 退出状态时运行的代码
         }
     }
 }

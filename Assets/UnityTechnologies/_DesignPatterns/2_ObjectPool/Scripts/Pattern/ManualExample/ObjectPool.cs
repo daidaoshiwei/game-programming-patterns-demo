@@ -6,14 +6,14 @@ namespace DesignPatterns.ObjectPool
 {
     public class ObjectPool : MonoBehaviour
     {
-        // initial number of cloned objects
+        // 初始克隆对象的数量
         [SerializeField] private uint initPoolSize;
         public uint InitPoolSize => initPoolSize;
 
-        // PooledObject prefab
+        // 要池化的对象预制体
         [SerializeField] private PooledObject objectToPool;
 
-        // store the pooled objects in stack
+        // 在栈中存储池化的对象
         private Stack<PooledObject> stack;
 
         private void Start()
@@ -21,10 +21,10 @@ namespace DesignPatterns.ObjectPool
             SetupPool();
         }
 
-        // creates the pool (invoke when the lag is not noticeable)
+        // 创建对象池（在延迟不明显时调用）
         private void SetupPool()
         {
-            // missing objectToPool Prefab field
+            // 缺少objectToPool预制体字段
             if (objectToPool == null)
             {
                 return;
@@ -32,7 +32,7 @@ namespace DesignPatterns.ObjectPool
 
             stack = new Stack<PooledObject>();
 
-            // populate the pool
+            // 填充对象池
             PooledObject instance = null;
 
             for (int i = 0; i < initPoolSize; i++)
@@ -44,16 +44,16 @@ namespace DesignPatterns.ObjectPool
             }
         }
 
-        // returns the first active GameObject from the pool
+        // 从对象池返回第一个可用的GameObject
         public PooledObject GetPooledObject()
         {
-            // missing objectToPool field
+            // 缺少objectToPool字段
             if (objectToPool == null)
             {
                 return null;
             }
 
-            // if the pool is not large enough, instantiate extra PooledObjects
+            // 如果对象池不够大，实例化额外的PooledObject
             if (stack.Count == 0)
             {
                 PooledObject newInstance = Instantiate(objectToPool);
@@ -61,13 +61,13 @@ namespace DesignPatterns.ObjectPool
                 return newInstance;
             }
 
-            // otherwise, just grab the next one from the list
+            // 否则，从列表中获取下一个对象
             PooledObject nextInstance = stack.Pop();
             nextInstance.gameObject.SetActive(true);
             return nextInstance;
         }
 
-        // returns the GameObject to the pool
+        // 将GameObject返回到对象池
         public void ReturnToPool(PooledObject pooledObject)
         {
             stack.Push(pooledObject);

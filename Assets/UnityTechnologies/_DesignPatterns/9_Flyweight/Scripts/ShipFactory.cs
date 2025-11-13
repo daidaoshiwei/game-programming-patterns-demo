@@ -10,12 +10,12 @@ namespace DesignPatterns.Flyweight
         [SerializeField] private Ship m_ShipPrefab;
         [SerializeField] private ShipData m_SharedData;
         
-        [Header("Layout")]
-        [Tooltip("Space between ships")]
+        [Header("布局")]
+        [Tooltip("船只之间的间距")]
         [SerializeField] private float m_Spacing = 1.0f;
-        [Tooltip("Maximum height of wave motion")]
+        [Tooltip("波浪运动的最大高度")]
         [SerializeField] private float m_Amplitude = 0.075f;
-        [Tooltip("Oscillation speed of wave motion")]
+        [Tooltip("波浪运动的振荡速度")]
         [SerializeField] private float m_Frequency = 0.3f;
 
         void Start()
@@ -29,21 +29,21 @@ namespace DesignPatterns.Flyweight
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    // Calculate position
+                    // 计算位置
                     Vector3 position = new Vector3(i * m_Spacing, 0, j * m_Spacing);
 
-                    // Instantiate and initialize the ship
+                    // 实例化并初始化船只
                     Ship newShip = Instantiate(m_ShipPrefab, position, Quaternion.identity, transform);
                     
-                    // Set starting health of 100
+                    // 设置初始生命值为100
                     newShip.Initialize(m_SharedData, 100);
 
-                    // Optional oscillation movement
+                    // 可选的振荡运动
                     SineWaveMover oscillation = newShip.gameObject.AddComponent<SineWaveMover>();
                     oscillation.Amplitude = m_Amplitude;
                     oscillation.Frequency = m_Frequency;
                     
-                    // Optional name
+                    // 可选的名称
                     newShip.name = $"Ship_{i * columns + j}";
                     
                 }

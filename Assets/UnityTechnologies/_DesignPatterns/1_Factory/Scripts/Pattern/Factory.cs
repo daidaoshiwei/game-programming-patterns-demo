@@ -5,14 +5,14 @@ using UnityEngine;
 namespace DesignPatterns.Factory
 {
     /// <summary>
-    /// Serves as the base class for all factory types. Factories create instances of products.
+    /// 作为所有工厂类型的基类。工厂用于创建产品实例。
     /// </summary>
     public abstract class Factory : MonoBehaviour
     {
-        // Abstract method to get a product instance.
+        // 抽象方法，用于获取产品实例
         public abstract IProduct GetProduct(Vector3 position);
 
-        // Shared method with all factories.
+        // 所有工厂共享的方法
         public string GetLog(IProduct product)
         {
             string logMessage = "Factory: created product " + product.ProductName;

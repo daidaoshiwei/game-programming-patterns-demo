@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 namespace DesignPatterns.MVP
 {
-    // The Presenter. This listens for View changes in the user interface and the manipulates the Model (Health)
-    // in response. The Presenter updates the View when the Model changes.
+    // Presenter（表现层）。监听用户界面中View的变化并相应地操作Model（Health）。
+    // 当Model发生变化时，Presenter会更新View。
 
     public class HealthPresenter : MonoBehaviour
     {
-        [Header("Model")]
-        [Tooltip("An object containing the health data")]
+        [Header("模型")]
+        [Tooltip("包含生命值数据的对象")]
         [SerializeField] Health m_Health;
 
-        [Header("View")]
-        [Tooltip("UI Slider representing health bar")]
+        [Header("视图")]
+        [Tooltip("表示生命值条的UI滑块")]
         [SerializeField] Slider m_HealthSlider;
         [Optional]
         [SerializeField] Text m_HealthLabel;
@@ -44,7 +44,7 @@ namespace DesignPatterns.MVP
             m_HealthSlider.maxValue = m_Health.MaxHealth;
         }
 
-        // send damage to the model
+        // 向模型发送伤害
         public void Damage(int amount)
         {
             m_Health.Decrement(amount);
@@ -55,7 +55,7 @@ namespace DesignPatterns.MVP
             m_Health.Increment(amount);
         }
 
-        // send reset to the model
+        // 向模型发送重置
         public void Reset()
         {
             m_Health.Restore();
@@ -66,7 +66,7 @@ namespace DesignPatterns.MVP
             if (m_Health == null)
                 return;
 
-            // format the data for view
+            // 为视图格式化数据
             if (m_Health.MaxHealth != 0)
             {
                 m_HealthSlider.value = ((float)m_Health.CurrentHealth / (float)m_Health.MaxHealth) *100f;
@@ -78,7 +78,7 @@ namespace DesignPatterns.MVP
             }
         }
 
-        // Event handling method; listen for model changes and update the view
+        // 事件处理方法；监听模型变化并更新视图
         public void Health_HealthChanged()
         {
             UpdateView();

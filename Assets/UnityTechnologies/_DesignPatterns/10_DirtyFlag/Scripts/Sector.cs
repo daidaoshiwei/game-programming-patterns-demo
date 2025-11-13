@@ -7,32 +7,32 @@ using UnityEngine.Serialization;
 namespace DesignPatterns.DirtyFlag
 {
     /// <summary>
-    /// Each Sector manages the loading and unloading of content for a specific part of the level based on proximity to the player.
+    /// 每个Sector根据与玩家的距离管理关卡特定部分内容的加载和卸载。
     ///
-    /// This works with the GameSectors script to set/unset a dirty flag to minimize unnecessary updates.
+    /// 与GameSectors脚本配合工作，设置/取消设置脏标记以最小化不必要的更新。
     /// </summary>
     public class Sector : MonoBehaviour
     {
-        [Header("Scene assets")] [SerializeField]
+        [Header("场景资源")] [SerializeField]
         SceneLoader m_SceneLoader;
 
         [SerializeField] string m_ScenePath;
 
-        [Tooltip("Offset to transform position")]
+        [Tooltip("相对于变换位置的偏移")]
         public Vector3 m_CenterOffset;
 
-        [Tooltip("Minimum distance to load")] public float m_LoadRadius;
+        [Tooltip("加载的最小距离")] public float m_LoadRadius;
 
-        [Header("Visualization")] [Tooltip("Material used when the sector's content is loaded.")] [SerializeField]
+        [Header("可视化")] [Tooltip("当扇区内容已加载时使用的材质。")] [SerializeField]
         Material m_ActiveMaterial;
 
-        [Tooltip("Material used when the sector's content is unloaded.")] [SerializeField]
+        [Tooltip("当扇区内容已卸载时使用的材质。")] [SerializeField]
         Material m_InactiveMaterial;
 
-        // Reference to the MeshRenderer for visualization
+        // 用于可视化的MeshRenderer引用
         MeshRenderer m_MeshRenderer;
 
-        // Properties
+        // 属性
         public bool IsLoaded { get; private set; } = false;
         public bool IsDirty { get; private set; } = false;
 
@@ -46,13 +46,13 @@ namespace DesignPatterns.DirtyFlag
                 Debug.LogError("[Sector]: SceneLoader not found in the scene.");
             }
 
-            // Reset the dirty flag to start
+            // 开始时重置脏标记
             Clean();
 
             IsLoaded = false;
         }
 
-        // Mark the sector as needing an update
+        // 将扇区标记为需要更新
         public void MarkDirty()
         {
             IsDirty = true;
@@ -60,10 +60,10 @@ namespace DesignPatterns.DirtyFlag
             Debug.Log("Sector " + gameObject.name + " is marked dirty");
         }
 
-        // Load sector content
+        // 加载扇区内容
         public void LoadContent()
         {
-            // Implement content loading logic
+            // 实现内容加载逻辑
             IsLoaded = true;
 
             if (m_MeshRenderer != null)
@@ -75,10 +75,10 @@ namespace DesignPatterns.DirtyFlag
                 m_SceneLoader.LoadSceneAdditivelyByPath(m_ScenePath);
         }
 
-        // Unload sector content
+        // 卸载扇区内容
         public void UnloadContent()
         {
-            // Content unloading logic
+            // 内容卸载逻辑
             IsLoaded = false;
 
             if (m_MeshRenderer != null)
@@ -88,13 +88,13 @@ namespace DesignPatterns.DirtyFlag
             Debug.Log("Unloading sector content...");
         }
 
-        // Check if the player is close enough to consider loading this sector
+        // 检查玩家是否足够接近以考虑加载此扇区
         public bool IsPlayerClose(Vector3 playerPosition)
         {
             return Vector3.Distance(playerPosition, transform.position + m_CenterOffset) <= m_LoadRadius;
         }
 
-        // Reset the dirty flag after updating
+        // 更新后重置脏标记
         public void Clean()
         {
             IsDirty = false;

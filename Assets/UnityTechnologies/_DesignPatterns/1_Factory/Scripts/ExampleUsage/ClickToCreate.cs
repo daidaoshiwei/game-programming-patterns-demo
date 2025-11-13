@@ -17,7 +17,7 @@ namespace DesignPatterns.Factory
         [SerializeField] 
         private Factory[] m_Factories;
 
-        // List to track all created products
+        // 用于跟踪所有已创建产品的列表
         private List<GameObject> m_CreatedProducts = new List<GameObject>();
 
         private void Update()
@@ -27,20 +27,20 @@ namespace DesignPatterns.Factory
 
         private void GetProductAtClick()
         {
-            // Check if the left mouse button is clicked
+            // 检查是否点击了鼠标左键
             if (Input.GetMouseButtonDown(0))
             {
-                // Get a random factory from the list
+                // 从列表中获取一个随机工厂
                 Factory selectedFactory = m_Factories[Random.Range(0, m_Factories.Length)];
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitInfo;
 
-                // Check if the raycast hits a collider on the layer we want to click
+                // 检查射线是否击中了我们想要点击的图层上的碰撞体
                 if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, m_LayerToClick) && selectedFactory != null)
                 {
                     IProduct product = selectedFactory.GetProduct(hitInfo.point + m_Offset);
                     
-                    // Add the GameObject of the created product to the list
+                    // 将创建的产品GameObject添加到列表中
                     if (product is Component component) 
                     {
                         m_CreatedProducts.Add(component.gameObject);
@@ -55,7 +55,7 @@ namespace DesignPatterns.Factory
             {
                 Destroy(product);
             }
-            // Clear the list when the object is destroyed
+            // 当对象被销毁时清空列表
             m_CreatedProducts.Clear(); 
         }
     }

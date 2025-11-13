@@ -6,17 +6,17 @@ namespace DesignPatterns.Factory
 {
     public class ConcreteFactoryA : Factory
     {
-        // Used to create a Prefab
+        // 用于创建预制体的引用
         [SerializeField] 
         private ProductA m_ProductPrefab;
 
         public override IProduct GetProduct(Vector3 position)
         {
-            // Create a Prefab instance and get the product component
+            // 创建预制体实例并获取产品组件
             GameObject instance = Instantiate(m_ProductPrefab.gameObject, position, Quaternion.identity);
             ProductA newProduct = instance.GetComponent<ProductA>();
 
-            // Each product contains its own logic
+            // 每个产品包含自己的逻辑
             newProduct.Initialize();
 
             return newProduct;

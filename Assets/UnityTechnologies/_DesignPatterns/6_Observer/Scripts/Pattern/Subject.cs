@@ -7,14 +7,14 @@ namespace DesignPatterns.Observer
 {
     public class Subject: MonoBehaviour
     {
-        // define an event with your own delegate
+        // 使用自定义委托定义事件
         //public delegate void ExampleDelegate();
         //public static event ExampleDelegate ExampleEvent;
 
-        //... or just use the System.Action
+        //... 或者直接使用System.Action
         public event Action ThingHappened;
 
-        // invoke the event to broadcast to any listeners/observers
+        // 调用事件以广播给任何监听者/观察者
         public void DoThing()
         {
             ThingHappened?.Invoke();

@@ -5,14 +5,14 @@ using UnityEngine;
 namespace DesignPatterns.Factory
 {
     /// <summary>
-    /// A common interface between products
+    /// 产品之间的通用接口
     /// </summary>
     public interface IProduct
     {
-        // add common properties and methods here
+        // 在此处添加通用属性和方法
         public string ProductName { get; set; }
 
-        // customize this for each concrete product
+        // 为每个具体产品自定义此方法
         public void Initialize();
     }
 }
